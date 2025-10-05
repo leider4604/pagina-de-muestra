@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEBULA KNIGHTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: #0a0a14;
+      color: #e0e0ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    header {
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00dbde, #fc00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(252, 0, 255, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #a0a0ff;
+      font-weight: 500;
+      position: relative;
+      padding: 0.3rem 0;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00dbde, #fc00ff);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 5%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 4rem 0 3rem;
+      padding: 2rem;
+      background: rgba(10, 10, 20, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(100, 100, 255, 0.2);
+      box-shadow: 0 0 30px rgba(150, 50, 255, 0.1);
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(90deg, #00dbde, #fc00ff, #00dbde);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #c0c0ff;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin: 2rem 0 3rem;
+      animation: slideUp 1s ease 0.3s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .downloads {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .downloads h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .platforms {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .platform {
+      background: rgba(20, 20, 40, 0.7);
+      border: 1px solid rgba(100, 100, 255, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 150px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .platform:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(150, 50, 255, 0.4);
+      border-color: rgba(150, 50, 255, 0.6);
+    }
+
+    .platform:hover::before {
+      left: 100%;
+    }
+
+    .platform img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 8px rgba(100, 100, 255, 0.5));
+    }
+
+    .platform span {
+      font-weight: 600;
+      color: #e0e0ff;
+      font-size: 1rem;
+    }
+
+    .socials {
+      text-align: center;
+      margin: 4rem 0 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(100, 100, 255, 0.2);
+    }
+
+    .socials h3 {
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    .social-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(30, 30, 60, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #a0a0ff;
+      font-weight: bold;
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(100, 100, 255, 0.3);
+    }
+
+    .social-icon:hover {
+      background: linear-gradient(135deg, #00dbde, #fc00ff);
+      color: white;
+      transform: scale(1.2) rotate(10deg);
+      box-shadow: 0 0 20px rgba(252, 0, 255, 0.6);
+      border-color: transparent;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      color: #8080b0;
+      font-size: 0.95rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(100, 100, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .platform {
+        width: 130px;
+        padding: 1.2rem;
+      }
+      .social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles background -->
+  <div id="particles-js"></div>
+
+  <header>
+    <div class="logo">NEBULA KNIGHTS</div>
+    <nav class="nav-links">
+      <a href="#trailer">Trailer</a>
+      <a href="#descargar">Descargar</a>
+      <a href="#redes">Redes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>NEBULA KNIGHTS</h1>
+      <p>Embárcate en una odisea interestelar donde la gravedad es tu aliada y cada salto te acerca a los secretos del cosmos. Un juego de plataformas cinemático con gráficos impresionantes y banda sonora original.</p>
+    </section>
+
+    <section id="trailer" class="video-container">
+      <!-- Reemplaza con tu enlace de YouTube -->
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </section>
+
+    <section id="descargar" class="downloads">
+      <h2>DESCARGA AHORA</h2>
+      <div class="platforms">
+        <div class="platform">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" stroke="#00dbde" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Windows</span>
+        </div>
+        <div class="platform">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#fc00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.5 12H16.5" stroke="#fc00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Mac</span>
+        </div>
+        <div class="platform">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Linux</span>
+        </div>
+        <div class="platform">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H17.5C18.163 17 18.7989 17.2634 19.2678 17.7322C19.7366 18.2011 20 18.837 20 19.5V20.5C20 21.163 19.7366 21.7989 19.2678 22.2678C18.7989 22.7366 18.163 23 17.5 23H6.5C5.83696 23 5.20107 22.7366 4.73223 22.2678C4.26339 21.7989 4 21.163 4 20.5V19.5Z" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 17V3.5C12 2.83696 12.2634 2.20107 12.7322 1.73223C13.2011 1.26339 13.837 1 14.5 1H17.5C18.163 1 18.7989 1.26339 19.2678 1.73223C19.7366 2.20107 20 2.83696 20 3.5V17" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Web</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="redes" class="socials">
+      <h3>ÚNETE A LA NEBULOSA</h3>
+      <div class="social-links">
+        <a href="#" class="social-icon" title="Discord">D</a>
+        <a href="#" class="social-icon" title="Twitter">X</a>
+        <a href="#" class="social-icon" title="Itch.io">I</a>
+        <a href="#" class="social-icon" title="GitHub">G</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Nebula Knights. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Particles.js script -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: ['#00dbde', '#fc00ff', '#00ffcc'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.3, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: '#4a00e0',
+            opacity: 0.2,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: 'none',
+            random: true,
+            straight: false,
+            out_mode: 'out',
+            bounce: false
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'repulse' },
+            onclick: { enable: true, mode: 'push' },
+            resize: true
+          }
+        },
+        retina_detect: true
+      });
+    });
+  </script>
+</body>
+</html>
